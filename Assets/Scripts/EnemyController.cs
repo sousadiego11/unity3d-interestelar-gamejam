@@ -100,14 +100,14 @@ public class EnemyController : MonoBehaviour
     }
 
     public void OnHit() {
-        stamina = Mathf.Clamp(stamina - Time.deltaTime, 0f, maxStamina);
+        stamina = Mathf.Clamp(stamina - Time.deltaTime * 2f, 0f, maxStamina);
         staminaSlider.value = stamina;
     }
     
     IEnumerator RegenerateStamina() {
         isRegeneratingStamina = true;
         while (stamina < maxStamina) {
-            stamina = Mathf.Clamp(stamina + Time.deltaTime * 0.5f, 0f, maxStamina);
+            stamina = Mathf.Clamp(stamina + Time.deltaTime * 0.4f, 0f, maxStamina);
             staminaSlider.value = stamina;
             yield return null;
         }

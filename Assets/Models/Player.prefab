@@ -59,8 +59,8 @@ MonoBehaviour:
     m_Bits: 64
   cam: {fileID: 0}
   characterController: {fileID: 8825207481346644455}
-  groundedRadius: 0.6
-  groundedOffset: {x: 0, y: 0.04, z: 0}
+  groundedRadius: 0.4
+  groundedOffset: {x: 0, y: 0.02, z: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -90,13 +90,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.57
-  m_Radius: 0.6
+  m_Height: 1.4
+  m_Radius: 0.4
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.26, z: 0}
+  m_Center: {x: 0, y: 0.32, z: 0}
 --- !u!1 &934011845790459018
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,8 +124,8 @@ Transform:
   m_GameObject: {fileID: 934011845790459018}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.036, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.8, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8621682403128268026}
