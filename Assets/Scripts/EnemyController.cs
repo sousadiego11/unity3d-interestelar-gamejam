@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float stamina;
     [SerializeField] Slider staminaSlider;
     [SerializeField] bool stunned;
+    [SerializeField] bool isRegeneratingStamina;
     [SerializeField] LayerMask maskPlayerAndCover;
 
     [Header("[ Knowledge ]")]
@@ -35,7 +36,10 @@ public class EnemyController : MonoBehaviour
     }
 
     void CheckStatus() {
-        stunned = stamina <= maxStamina;
+        stunned = stamina <= 0f;
+        if (stunned && !isRegeneratingStamina) {
+            StartCoroutine(RegenerateStamina());
+        }
     }
 
     void CheckPlayerDetection() {
@@ -47,7 +51,7 @@ public class EnemyController : MonoBehaviour
 
             playerDistance = playerDirection.magnitude;
             playerInFov = dotProduct >= viewTreshold;
-            playerDetected = Physics.Raycast(transform.position, playerDirection.normalized, out RaycastHit hit, viewDistance, maskPlayerAndCover) && !hit.collider.CompareTag("Cover");
+            playerDetected = playerInFov && Physics.Raycast(transform.position, playerDirection.normalized, out RaycastHit hit, viewDistance, maskPlayerAndCover) && !hit.collider.CompareTag("Cover");
 
             Debug.DrawLine(transform.position, transform.position + transform.forward * viewDistance, Color.red);
             Debug.DrawLine(transform.position, transform.position + playerDirection.normalized * viewDistance, Color.green);
@@ -69,7 +73,17 @@ public class EnemyController : MonoBehaviour
     }
 
     public void OnHit() {
-        stamina -= Time.deltaTime;
+        stamina = Mathf.Clamp(stamina - Time.deltaTime, 0f, maxStamina);
         staminaSlider.value = stamina;
+    }
+    
+    IEnumerator RegenerateStamina() {
+        isRegeneratingStamina = true;
+        while (stamina < maxStamina) {
+            stamina = Mathf.Clamp(stamina + Time.deltaTime * 0.5f, 0f, maxStamina);
+            staminaSlider.value = stamina;
+            yield return null;
+        }
+        isRegeneratingStamina = false;
     }
 }
