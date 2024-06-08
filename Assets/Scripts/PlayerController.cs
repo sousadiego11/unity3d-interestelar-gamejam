@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private CameraFollowController cam;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Slider healthBar;
+    [SerializeField] private GameObject puppet;
 
     [Header("[ Ground Check ]")]
     [SerializeField] private float groundedRadius;
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         CheckInteractions();
         CheckGroundStatus();
+        CheckHealth();
 
         HandleLazerShoot();
         HandleMovement();
@@ -102,6 +105,13 @@ public class PlayerController : MonoBehaviour {
         isRunning = Input.GetKey(KeyCode.LeftShift);
         isAiming = Input.GetKey(KeyCode.Mouse1);
         isShooting = Input.GetKey(KeyCode.Mouse0);
+    }
+
+    void CheckHealth() {
+        if (healthBar.value <= healthBar.minValue) {
+            Instantiate(puppet, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
 
     void OnDrawGizmosSelected() {

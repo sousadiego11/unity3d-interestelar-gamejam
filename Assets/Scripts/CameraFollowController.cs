@@ -25,16 +25,18 @@ public class CameraFollowController : MonoBehaviour
     }
 
     void Update() {
-        pitchPos += Input.GetAxis("Mouse Y") * -1;
-        pitchPos = Mathf.Clamp(pitchPos, -20f, 50f);
-        yawPos += Input.GetAxis("Mouse X");
+        if (player != null) {
+            pitchPos += Input.GetAxis("Mouse Y") * -1;
+            pitchPos = Mathf.Clamp(pitchPos, -20f, 50f);
+            yawPos += Input.GetAxis("Mouse X");
 
-        HandleOffset();
-        Quaternion rotationMatrix = Quaternion.Euler(pitchPos, yawPos, 0f);
-        Vector3 newPositionOffset = Vector3.forward * offset.z + Vector3.up * offset.y + Vector3.right * offset.x;
-        Vector3 newPosition = player.transform.position - rotationMatrix * newPositionOffset;
+            HandleOffset();
+            Quaternion rotationMatrix = Quaternion.Euler(pitchPos, yawPos, 0f);
+            Vector3 newPositionOffset = Vector3.forward * offset.z + Vector3.up * offset.y + Vector3.right * offset.x;
+            Vector3 newPosition = player.transform.position - rotationMatrix * newPositionOffset;
 
-        transform.SetPositionAndRotation(newPosition, rotationMatrix);
+            transform.SetPositionAndRotation(newPosition, rotationMatrix);
+        }
     }
 
     void HandleOffset() {
