@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     [Header("[ Dependencies ]")]
     [SerializeField] private CameraFollowController cam;
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private Slider healthBar;
 
     [Header("[ Ground Check ]")]
     [SerializeField] private float groundedRadius;
@@ -105,5 +107,9 @@ public class PlayerController : MonoBehaviour {
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + groundedOffset, groundedRadius);
+    }
+
+    public void OnHit(float damage) {
+        healthBar.value -= Time.deltaTime * damage;
     }
 }

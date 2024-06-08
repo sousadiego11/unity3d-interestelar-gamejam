@@ -13,8 +13,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float patrolRadius;
     [SerializeField] Renderer leftEye;
     [SerializeField] Renderer rightEye;
-    [SerializeField] float maxStamina;
-    [SerializeField] float stamina;
     [SerializeField] Slider staminaSlider;
     [SerializeField] float shootReloadTime;
     [SerializeField] LayerMask maskPlayerAndCover;
@@ -35,7 +33,6 @@ public class EnemyController : MonoBehaviour
     private NavMeshAgent navAgent;
 
     void Start() {
-        stamina = maxStamina;
         navAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -78,7 +75,7 @@ public class EnemyController : MonoBehaviour
     }
 
     void CheckStatus() {
-        isStunned = stamina <= 0f || isRegeneratingStamina;
+        isStunned = staminaSlider.value <= 0f || isRegeneratingStamina;
         if (isStunned && !isRegeneratingStamina) {
             StartCoroutine(RegenerateStamina());
         }
@@ -115,15 +112,13 @@ public class EnemyController : MonoBehaviour
     }
 
     public void OnHit() {
-        stamina = Mathf.Clamp(stamina - Time.deltaTime * 2f, 0f, maxStamina);
-        staminaSlider.value = stamina;
+        staminaSlider.value -= Time.deltaTime * 2f;
     }
     
     IEnumerator RegenerateStamina() {
         isRegeneratingStamina = true;
-        while (stamina < maxStamina) {
-            stamina = Mathf.Clamp(stamina + Time.deltaTime * 0.4f, 0f, maxStamina);
-            staminaSlider.value = stamina;
+        while (staminaSlider.value < staminaSlider.maxValue) {
+            staminaSlider.value += Time.deltaTime * 0.4f;
             yield return null;
         }
         isRegeneratingStamina = false;
