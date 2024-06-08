@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour {
 
     void CheckHealth() {
         if (healthBar.value <= healthBar.minValue) {
+            SceneHandler.Singleton.ReloadScene();
             Instantiate(puppet, transform.position, transform.rotation);
             Destroy(gameObject);
         }
