@@ -74,7 +74,6 @@ MonoBehaviour:
   isGrounded: 0
   velocity: 4
   fallVelocity: 50
-  verticalVelocity: 0
   jumpHeight: 2
   rotationSpeed: 500
 --- !u!143 &8825207481346644455
@@ -855,10 +854,10 @@ RectTransform:
   - {fileID: 4741571287510796375}
   m_Father: {fileID: 5177953930600161209}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -524.8, y: -317.11365}
-  m_SizeDelta: {x: 125.9628, y: 28.171}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 80, y: 30}
+  m_SizeDelta: {x: 125.9628, y: 28.17102}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1194896168231334508
 MonoBehaviour:
@@ -944,7 +943,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -0.46479797, y: 0}
+  m_AnchoredPosition: {x: -0.4647827, y: 0}
   m_SizeDelta: {x: -10.1293, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9122189181003855253

@@ -521,6 +521,10 @@ PrefabInstance:
       propertyPath: fallVelocity
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 573037144727354732, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
+      propertyPath: groundedRadius
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 646582796779908602, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
       propertyPath: m_Name
       value: Player
