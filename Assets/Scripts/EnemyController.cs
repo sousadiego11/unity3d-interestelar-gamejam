@@ -10,19 +10,21 @@ public class EnemyController : MonoBehaviour
     [Header("[ Properties ]")]
     [SerializeField] float viewDistance;
     [SerializeField] float viewAngle;
+    [SerializeField] float patrolRadius;
     [SerializeField] Renderer leftEye;
     [SerializeField] Renderer rightEye;
     [SerializeField] float maxStamina;
     [SerializeField] float stamina;
     [SerializeField] Slider staminaSlider;
-    [SerializeField] bool stunned;
-    [SerializeField] bool isRegeneratingStamina;
     [SerializeField] LayerMask maskPlayerAndCover;
 
     [Header("[ Knowledge ]")]
     public bool playerInFov;
     public bool playerDetected;
     public float playerDistance;
+    public bool isPatrolling;
+    public bool isStunned;
+    public bool isRegeneratingStamina;
 
     // -- Local --
     private GameObject player;
@@ -37,18 +39,32 @@ public class EnemyController : MonoBehaviour
     void Update() {
         CheckStatus();
         CheckPlayerDetection();
+        
         Chase();
+        Patrol();
     }
 
     void Chase() {
-        if (playerDetected && !stunned) {
+        if (playerDetected && !isStunned) {
+            isPatrolling = false;
             navAgent.SetDestination(player.transform.position);
         }
     }
 
+    void Patrol() {
+        if (!isPatrolling && !playerDetected || isStunned) navAgent.ResetPath();
+        if (!playerDetected && !isStunned && (!navAgent.hasPath || navAgent.remainingDistance <= navAgent.stoppingDistance)) {
+            isPatrolling = true;
+            Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrolRadius + transform.position;
+
+            NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, patrolRadius, 1);
+            navAgent.SetDestination(hit.position);
+        }
+    }
+
     void CheckStatus() {
-        stunned = stamina <= 0f || isRegeneratingStamina;
-        if (stunned && !isRegeneratingStamina) {
+        isStunned = stamina <= 0f || isRegeneratingStamina;
+        if (isStunned && !isRegeneratingStamina) {
             StartCoroutine(RegenerateStamina());
         }
     }

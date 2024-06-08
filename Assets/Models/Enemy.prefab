@@ -698,19 +698,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewDistance: 10
   viewAngle: 180
+  patrolRadius: 10
   leftEye: {fileID: 7820464834243810352}
   rightEye: {fileID: 8073812189653848907}
   maxStamina: 5
   stamina: 0
   staminaSlider: {fileID: 892734715017793146}
-  stunned: 0
-  isRegeneratingStamina: 0
   maskPlayerAndCover:
     serializedVersion: 2
     m_Bits: 384
   playerInFov: 0
   playerDetected: 0
   playerDistance: 0
+  isPatrolling: 0
+  isStunned: 0
+  isRegeneratingStamina: 0
 --- !u!195 &8908458786170813838
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -730,7 +732,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!65 &101120542239257944

@@ -7,9 +7,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     [Header("[ Shooting ]")]
-    [SerializeField] private List<Transform> eyes;
     [SerializeField] private float lazerDistance;
-    [SerializeField] private Transform debugPoint;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private Material lazerMaterial;
     [SerializeField] private LayerMask layerMask;
 
     [Header("[ Dependencies ]")]
@@ -33,6 +33,14 @@ public class PlayerController : MonoBehaviour {
 
     // -- Local --
     Vector3 inputDirection;
+
+    void Start() {
+        LineRenderer lr = shootPoint.gameObject.AddComponent<LineRenderer>();
+        lr.startWidth = 0.02f;
+        lr.endWidth = 0.02f;
+        lr.material = lazerMaterial;
+        lr.enabled = false;
+    }
 
     void Update() {
         CheckInteractions();
@@ -59,19 +67,21 @@ public class PlayerController : MonoBehaviour {
     void HandleLazerShoot() {
         if (isAiming) {
             Vector3 middleScreenToWorld = cam.thisCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, lazerDistance));
-            debugPoint.position = middleScreenToWorld;
+            LineRenderer lineRenderer = shootPoint.GetComponent<LineRenderer>();
 
-            foreach (Transform eye in eyes) {
-                if (isShooting) {
-                    Vector3 eyeLazerDirection = (middleScreenToWorld - eye.position).normalized;
-                    Debug.DrawLine(eye.position, middleScreenToWorld, Color.green);
+            if (isShooting) {
+                Vector3 direction = middleScreenToWorld - shootPoint.position;
 
-                    if (Physics.Raycast(eye.position, eyeLazerDirection, out RaycastHit hit, lazerDistance, layerMask)) {
-                        if (hit.collider.TryGetComponent(out EnemyController enemyController)) {
-                            enemyController.OnHit();
-                        }
-                    }
+                lineRenderer.SetPosition(0, shootPoint.position);
+                lineRenderer.SetPosition(1, middleScreenToWorld);
+                lineRenderer.enabled = true;
+
+                if (Physics.Raycast(shootPoint.position, direction.normalized, out RaycastHit hit, lazerDistance, layerMask)) {
+                    lineRenderer.SetPosition(1, hit.point);
+                    if (hit.collider.TryGetComponent(out EnemyController enemyController)) enemyController.OnHit();
                 }
+            } else {
+                lineRenderer.enabled = false;
             }
         }
     }
