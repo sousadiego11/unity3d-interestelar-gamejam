@@ -810,15 +810,19 @@ MonoBehaviour:
   maxStamina: 5
   stamina: 0
   staminaSlider: {fileID: 892734715017793146}
+  shootReloadTime: 4
   maskPlayerAndCover:
     serializedVersion: 2
     m_Bits: 384
+  projectilePrefab: {fileID: 965344820791066021, guid: b8ceab87b78641640ac1e0964498e25f, type: 3}
+  shootPoint: {fileID: 2064019914726055943}
   playerInFov: 0
   playerDetected: 0
   playerDistance: 0
   isPatrolling: 0
   isStunned: 0
   isRegeneratingStamina: 0
+  isReloadingShoot: 0
 --- !u!195 &8908458786170813838
 NavMeshAgent:
   m_ObjectHideFlags: 0

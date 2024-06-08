@@ -16,7 +16,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float maxStamina;
     [SerializeField] float stamina;
     [SerializeField] Slider staminaSlider;
+    [SerializeField] float shootReloadTime;
     [SerializeField] LayerMask maskPlayerAndCover;
+    [SerializeField] ProjectileController projectilePrefab;
+    [SerializeField] Transform shootPoint;
 
     [Header("[ Knowledge ]")]
     public bool playerInFov;
@@ -25,6 +28,7 @@ public class EnemyController : MonoBehaviour
     public bool isPatrolling;
     public bool isStunned;
     public bool isRegeneratingStamina;
+    public bool isReloadingShoot;
 
     // -- Local --
     private GameObject player;
@@ -48,6 +52,17 @@ public class EnemyController : MonoBehaviour
         if (playerDetected && !isStunned) {
             isPatrolling = false;
             navAgent.SetDestination(player.transform.position);
+            Attack();
+        }
+    }
+
+    void Attack() {
+        if (!isReloadingShoot) {
+            Vector3 playerDirection = (player.transform.position - transform.position).normalized;
+            Quaternion projectileRotation = Quaternion.LookRotation(playerDirection);
+
+            Instantiate(projectilePrefab, shootPoint.position, projectileRotation);
+            StartCoroutine(ReloadShoot());
         }
     }
 
@@ -112,5 +127,11 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
         isRegeneratingStamina = false;
+    }
+    
+    IEnumerator ReloadShoot() {
+        isReloadingShoot = true;
+        yield return new WaitForSeconds(shootReloadTime);
+        isReloadingShoot = false;
     }
 }
