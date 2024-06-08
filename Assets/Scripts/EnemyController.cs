@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
@@ -22,21 +23,31 @@ public class EnemyController : MonoBehaviour
     public bool playerInFov;
     public bool playerDetected;
     public float playerDistance;
-    public bool hitByPlayer;
+
+    // -- Local --
     private GameObject player;
+    private NavMeshAgent navAgent;
 
     void Start() {
         stamina = maxStamina;
+        navAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update() {
         CheckStatus();
         CheckPlayerDetection();
+        Chase();
+    }
+
+    void Chase() {
+        if (playerDetected && !stunned) {
+            navAgent.SetDestination(player.transform.position);
+        }
     }
 
     void CheckStatus() {
-        stunned = stamina <= 0f;
+        stunned = stamina <= 0f || isRegeneratingStamina;
         if (stunned && !isRegeneratingStamina) {
             StartCoroutine(RegenerateStamina());
         }
