@@ -66,13 +66,16 @@ MonoBehaviour:
   groundedOffset: {x: 0, y: 0, z: 0}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 833
   isMoving: 0
   isRunning: 0
   isAiming: 0
   isShooting: 0
   isGrounded: 0
   velocity: 4
+  fallVelocity: 50
+  verticalVelocity: 0
+  jumpHeight: 2
   rotationSpeed: 500
 --- !u!143 &8825207481346644455
 CharacterController:
@@ -941,7 +944,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -0.064697266, y: 0}
+  m_AnchoredPosition: {x: -0.46479797, y: 0}
   m_SizeDelta: {x: -10.1293, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9122189181003855253

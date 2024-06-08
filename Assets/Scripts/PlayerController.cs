@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,11 +32,14 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] public bool isAiming;
     [SerializeField] public bool isShooting;
     [SerializeField] private bool isGrounded;
-    [SerializeField] private float velocity = 1f;
+    [SerializeField] private float velocity = 4f;
+    [SerializeField] private float fallVelocity = 2f;
+    [SerializeField] private float jumpHeight = 2f;
     [SerializeField] private float rotationSpeed;
 
     // -- Local --
     Vector3 inputDirection;
+    float verticalVelocity;
 
     void Start() {
         LineRenderer lr = shootPoint.gameObject.AddComponent<LineRenderer>();
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour {
         CheckHealth();
 
         HandleLazerShoot();
+        HandleVerticalVelocity();
         HandleMovement();
     }
 
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour {
         direction.y = 0f;
 
         Vector3 movementMotion = velocity * direction;
+        movementMotion.y = verticalVelocity;
         characterController.Move(movementMotion * Time.deltaTime);
 
         if (isMoving) {
@@ -68,6 +72,17 @@ public class PlayerController : MonoBehaviour {
             Quaternion rotationOffset = Quaternion.RotateTowards(transform.rotation, rotationDirection, rotationSpeed * Time.deltaTime);
             transform.rotation = rotationOffset;
         }
+    }
+
+    void HandleVerticalVelocity() {
+        if (isGrounded && verticalVelocity < 0) {
+            verticalVelocity = 0f;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) {
+            verticalVelocity += Mathf.Sqrt(jumpHeight * -3.0f * Physics.gravity.y);
+        }
+
+        verticalVelocity += Physics.gravity.y * Time.deltaTime * fallVelocity;
     }
 
     void HandleLazerShoot() {
@@ -94,7 +109,7 @@ public class PlayerController : MonoBehaviour {
 
     void CheckGroundStatus() {
         Vector3 spherePosition = transform.position + groundedOffset;
-        isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayer, QueryTriggerInteraction.Ignore);
+        isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayer);
     }
 
     void CheckInteractions() {

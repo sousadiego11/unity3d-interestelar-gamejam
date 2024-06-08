@@ -517,33 +517,13 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1526386123}
+    - target: {fileID: 573037144727354732, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
+      propertyPath: fallVelocity
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 646582796779908602, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1908013225985200523, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1908013225985200523, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4105974405504743669, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4105974405504743669, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4105974405504743669, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4741571287510796375, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.46479797
       objectReference: {fileID: 0}
     - target: {fileID: 8621682403128268026, guid: acb7555daf5e17c4e94722f882d90f86, type: 3}
       propertyPath: m_LocalPosition.x
