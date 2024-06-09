@@ -86,23 +86,20 @@ public class PlayerController : MonoBehaviour {
     }
 
     void HandleLazerShoot() {
-        if (isAiming) {
+        LineRenderer lineRenderer = shootPoint.GetComponent<LineRenderer>();
+
+        if (!isAiming || !isShooting) lineRenderer.enabled = false;
+        if (isAiming && isShooting) {
             Vector3 middleScreenToWorld = cam.thisCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, lazerDistance));
-            LineRenderer lineRenderer = shootPoint.GetComponent<LineRenderer>();
+            Vector3 direction = middleScreenToWorld - shootPoint.position;
 
-            if (isShooting) {
-                Vector3 direction = middleScreenToWorld - shootPoint.position;
+            lineRenderer.SetPosition(0, shootPoint.position);
+            lineRenderer.SetPosition(1, middleScreenToWorld);
+            lineRenderer.enabled = true;
 
-                lineRenderer.SetPosition(0, shootPoint.position);
-                lineRenderer.SetPosition(1, middleScreenToWorld);
-                lineRenderer.enabled = true;
-
-                if (Physics.Raycast(shootPoint.position, direction.normalized, out RaycastHit hit, lazerDistance, layerMask)) {
-                    lineRenderer.SetPosition(1, hit.point);
-                    if (hit.collider.TryGetComponent(out EnemyController enemyController)) enemyController.OnHit();
-                }
-            } else {
-                lineRenderer.enabled = false;
+            if (Physics.Raycast(shootPoint.position, direction.normalized, out RaycastHit hit, lazerDistance, layerMask)) {
+                lineRenderer.SetPosition(1, hit.point);
+                if (hit.collider.TryGetComponent(out EnemyController enemyController)) enemyController.OnHit();
             }
         }
     }

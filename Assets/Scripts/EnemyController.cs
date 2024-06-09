@@ -40,6 +40,7 @@ public class EnemyController : MonoBehaviour
     void Update() {
         CheckStatus();
         CheckPlayerDetection();
+        CheckColors();
         
         Chase();
         Patrol();
@@ -98,9 +99,18 @@ public class EnemyController : MonoBehaviour
             playerInFov = false;
             playerDetected = false;
         }
+    }
 
-        leftEye.material.color = playerDetected ? Color.red : Color.blue;
-        rightEye.material.color = playerDetected ? Color.red : Color.blue;
+    void CheckColors() {
+        Color targetColor = isStunned ? Color.yellow : playerDetected ? Color.red : Color.blue;
+        
+        leftEye.material.color = targetColor;
+        leftEye.material.EnableKeyword("_EMISSION");
+        leftEye.material.SetColor("_EmissionColor", targetColor);
+
+        rightEye.material.color = targetColor;
+        rightEye.material.EnableKeyword("_EMISSION");
+        rightEye.material.SetColor("_EmissionColor", targetColor);
     }
 
     bool HasPlayerTransform() {
