@@ -1,0 +1,19 @@
+City:
+ package: https://assetstore.unity.com/packages/3d/environments/urban/city-package-107224
+ license: https://unity.com/pt/legal/as-terms
+
+Lonely long:
+	link: https://pixabay.com/music/modern-classical-loneliness-long-202383/
+	license: https://pixabay.com/service/license-summary/
+
+Nyctophobia (industrial) (detected song)
+	link: https://freesound.org/people/Beetlemuse/sounds/588168/
+	license: https://creativecommons.org/publicdomain/zero/1.0/
+
+FX_Boss_Laser_Shot_5 (lazer shot enemy)
+	link: https://freesound.org/people/JakeAMT/sounds/681960/
+	license: https://creativecommons.org/publicdomain/zero/1.0/
+
+Computer Thinking (lazer hack hit)
+	link: https://freesound.org/people/ecfike/sounds/135897/
+	license: https://creativecommons.org/publicdomain/zero/1.0/
