@@ -21,6 +21,7 @@ public class SceneHandler : MonoBehaviour {
     void Update() {
         if (Input.anyKeyDown) {
             mainMenu.enabled = false;
+            HideCursor();
         }
         if (Input.GetKeyDown(KeyCode.Escape)) {
             Application.Quit();
@@ -37,6 +38,16 @@ public class SceneHandler : MonoBehaviour {
 
     public void EnableEndMenu() {
         endMenu.enabled = true;
+    }
+
+    public void HideCursor() {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void ShowCursor() {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private IEnumerator ReloadSceneCoroutine() {
