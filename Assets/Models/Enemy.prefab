@@ -674,7 +674,8 @@ MonoBehaviour:
   leftEye: {fileID: 7820464834243810352}
   rightEye: {fileID: 8073812189653848907}
   staminaSlider: {fileID: 1309562364668250821}
-  shootReloadTime: 4
+  canvas: {fileID: 6583071056497734770}
+  shootReloadTime: 3
   maskPlayerAndCover:
     serializedVersion: 2
     m_Bits: 384
@@ -809,5 +810,10 @@ MonoBehaviour:
 --- !u!4 &5313258650067726672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1381111465362947580, guid: c28889be31f97f540933d684f79ba51d, type: 3}
+  m_PrefabInstance: {fileID: 6527630213237673132}
+  m_PrefabAsset: {fileID: 0}
+--- !u!223 &6583071056497734770 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 129770028857850078, guid: c28889be31f97f540933d684f79ba51d, type: 3}
   m_PrefabInstance: {fileID: 6527630213237673132}
   m_PrefabAsset: {fileID: 0}

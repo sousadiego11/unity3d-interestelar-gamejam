@@ -9,6 +9,7 @@ public class SceneHandler : MonoBehaviour {
 
     public static SceneHandler Singleton;
     private void Awake() {
+        endMenu.enabled = false;
         if (Singleton == null) {
             Singleton = this;
         }

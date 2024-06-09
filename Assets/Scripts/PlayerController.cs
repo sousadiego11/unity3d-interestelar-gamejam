@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private CameraFollowController cam;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Slider healthBar;
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private RawImage crosshair;
     [SerializeField] private GameObject puppet;
 
     [Header("[ Ground Check ]")]
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
+        canvas.enabled = !SceneHandler.Singleton.MenuActive();
         if (SceneHandler.Singleton != null && !SceneHandler.Singleton.MenuActive()) {
             CheckInteractions();
             CheckGroundStatus();
@@ -89,6 +92,7 @@ public class PlayerController : MonoBehaviour {
 
     void HandleLazerShoot() {
         LineRenderer lineRenderer = shootPoint.GetComponent<LineRenderer>();
+        crosshair.enabled = isAiming;
 
         if (!isAiming || !isShooting) lineRenderer.enabled = false;
         if (isAiming && isShooting) {

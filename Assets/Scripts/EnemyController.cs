@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Renderer leftEye;
     [SerializeField] Renderer rightEye;
     [SerializeField] Slider staminaSlider;
+    [SerializeField] Canvas canvas;
     [SerializeField] float shootReloadTime;
     [SerializeField] LayerMask maskPlayerAndCover;
     [SerializeField] ProjectileController projectilePrefab;
@@ -76,7 +77,9 @@ public class EnemyController : MonoBehaviour
     }
 
     void CheckStatus() {
+        canvas.enabled = staminaSlider.value < staminaSlider.maxValue;
         isStunned = staminaSlider.value <= 0f || isRegeneratingStamina;
+
         if (isStunned && !isRegeneratingStamina) {
             StartCoroutine(RegenerateStamina());
         }
