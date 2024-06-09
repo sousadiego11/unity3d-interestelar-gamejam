@@ -50,13 +50,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        CheckInteractions();
-        CheckGroundStatus();
-        CheckHealth();
+        if (SceneHandler.Singleton != null && !SceneHandler.Singleton.MenuActive()) {
+            CheckInteractions();
+            CheckGroundStatus();
+            CheckHealth();
 
-        HandleLazerShoot();
-        HandleVerticalVelocity();
-        HandleMovement();
+            HandleLazerShoot();
+            HandleVerticalVelocity();
+            HandleMovement();
+        }
     }
 
     void HandleMovement() {

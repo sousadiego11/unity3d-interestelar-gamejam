@@ -25,7 +25,7 @@ public class CameraFollowController : MonoBehaviour
     }
 
     void Update() {
-        if (player != null) {
+        if (player != null && SceneHandler.Singleton != null && !SceneHandler.Singleton.MenuActive()) {
             pitchPos += Input.GetAxis("Mouse Y") * -1;
             pitchPos = Mathf.Clamp(pitchPos, -20f, 50f);
             yawPos += Input.GetAxis("Mouse X");
