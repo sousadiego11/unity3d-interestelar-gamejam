@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float coverLayer;
     [SerializeField] ProjectileController projectilePrefab;
     [SerializeField] Transform shootPoint;
+    [SerializeField]  Animator animator;
 
     [Header("[ Knowledge ]")]
     public bool playerInFov;
@@ -81,6 +82,7 @@ public class EnemyController : MonoBehaviour
     void CheckStatus() {
         canvas.enabled = staminaSlider.value < staminaSlider.maxValue;
         isStunned = staminaSlider.value <= 0f || isRegeneratingStamina;
+        animator.SetBool("isStunned", isStunned);
 
         if (isStunned && !isRegeneratingStamina) {
             StartCoroutine(RegenerateStamina());
