@@ -108,7 +108,11 @@ public class PlayerController : MonoBehaviour {
                 if (hit.collider.TryGetComponent(out EnemyController enemyController)) {
                     SoundBoard.Instance.PlayLazerHackSFX();
                     enemyController.OnHit();
-                };
+                } else {
+                    SoundBoard.Instance.PauseLazerHackSFX();
+                }
+            } else {
+                SoundBoard.Instance.PauseLazerHackSFX();
             }
         } else {
             SoundBoard.Instance.PauseLazerHackSFX();

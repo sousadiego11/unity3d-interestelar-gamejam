@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5cca38614f03cd42b3a8bedd473436f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lazerDistance: 12
+  lazerDistance: 20
   shootPoint: {fileID: 5484242079891129453}
   lazerMaterial: {fileID: 2100000, guid: 284a18de0952d674fa1604a9e1ed51a2, type: 2}
   layerMask:

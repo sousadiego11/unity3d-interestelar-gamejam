@@ -44,7 +44,7 @@ public class SoundBoard : MonoBehaviour {
         Audio lazerHackAudio = audioClips.Find(a => a.name == Audio.AudioEnum.LazerHackSFX);
         if (lazerHackAudio.audioClip != null && !lazerHackSource.isPlaying) {
             lazerHackSource.clip = lazerHackAudio.audioClip;
-            lazerHackSource.volume = 1;
+            lazerHackSource.volume = 0.6f;
             lazerHackSource.Play();
         }
     }
