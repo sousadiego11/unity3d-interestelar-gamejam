@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Canvas canvas;
     [SerializeField] float shootReloadTime;
     [SerializeField] LayerMask maskPlayerAndCover;
+    [SerializeField] float coverLayer;
     [SerializeField] ProjectileController projectilePrefab;
     [SerializeField] Transform shootPoint;
 
@@ -95,7 +96,7 @@ public class EnemyController : MonoBehaviour
 
             playerDistance = playerDirection.magnitude;
             playerInFov = dotProduct >= viewTreshold;
-            playerDetected = playerInFov && Physics.Raycast(transform.position, playerDirection.normalized, out RaycastHit hit, viewDistance, maskPlayerAndCover) && !hit.collider.CompareTag("Cover");
+            playerDetected = playerInFov && Physics.Raycast(transform.position, playerDirection.normalized, out RaycastHit hit, viewDistance, maskPlayerAndCover) && hit.collider.gameObject.layer != coverLayer;
 
             Debug.DrawLine(transform.position, transform.position + transform.forward * viewDistance, Color.red);
             Debug.DrawLine(transform.position, transform.position + playerDirection.normalized * viewDistance, Color.green);

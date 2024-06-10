@@ -679,6 +679,7 @@ MonoBehaviour:
   maskPlayerAndCover:
     serializedVersion: 2
     m_Bits: 384
+  coverLayer: 8
   projectilePrefab: {fileID: 965344820791066021, guid: b8ceab87b78641640ac1e0964498e25f, type: 3}
   shootPoint: {fileID: 2064019914726055943}
   playerInFov: 0
