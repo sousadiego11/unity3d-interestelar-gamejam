@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour {
 
             if (Physics.Raycast(shootPoint.position, direction.normalized, out RaycastHit hit, lazerDistance, layerMask)) {
                 lineRenderer.SetPosition(1, hit.point);
-                if (!hit.collider.TryGetComponent(out EnemyController enemyController)) {
+                if (hit.collider.TryGetComponent(out EnemyController enemyController)) {
                     SoundBoard.Instance.PlayLazerHackSFX();
                     enemyController.OnHit();
                 }

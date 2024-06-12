@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 543d431d9fcf22c4db60d5897df90f5c, type: 2}
+  - {fileID: 2100000, guid: 1d9a653c88c86244ba95cb842acd26f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -485,12 +485,12 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 7.0955753
-  m_SpotAngle: 61.30323
+  m_Range: 18.174435
+  m_SpotAngle: 113.19815
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewDistance: 20
-  viewAngle: 180
+  viewAngle: 90
   patrolRadius: 10
   leftEye: {fileID: 7820464834243810352}
   rightEye: {fileID: 8073812189653848907}

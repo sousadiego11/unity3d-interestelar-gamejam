@@ -15,7 +15,6 @@ public class CameraFollowController : MonoBehaviour
     // -- Local --
     float pitchPos;
     float yawPos;
-    Vector3 offset;
     [HideInInspector] public Camera thisCamera;
 
     void Start() {
@@ -29,7 +28,7 @@ public class CameraFollowController : MonoBehaviour
             yawPos += Input.GetAxis("Mouse X");
 
             Quaternion rotationMatrix = Quaternion.Euler(pitchPos, yawPos, 0f);
-            Vector3 newPositionOffset = Vector3.forward * offset.z + Vector3.up * offset.y + Vector3.right * offset.x;
+            Vector3 newPositionOffset = Vector3.forward * camOffset.z + Vector3.up * camOffset.y + Vector3.right * camOffset.x;
             Vector3 newPosition = player.transform.position - rotationMatrix * newPositionOffset;
 
             transform.SetPositionAndRotation(newPosition, rotationMatrix);
