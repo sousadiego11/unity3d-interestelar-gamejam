@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private CameraFollowController cam;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Slider healthBar;
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private RawImage crosshair;
     [SerializeField] private GameObject puppet;
 
     [Header("[ Ground Check ]")]
@@ -31,7 +29,6 @@ public class PlayerController : MonoBehaviour {
     [Header("[ State ]")]
     [SerializeField] bool isMoving;
     [SerializeField] public bool isRunning;
-    [SerializeField] public bool isAiming;
     [SerializeField] public bool isShooting;
     [SerializeField] private bool isGrounded;
     [SerializeField] private float velocity = 4f;
@@ -52,7 +49,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        canvas.enabled = !SceneHandler.Singleton.MenuActive();
         if (SceneHandler.Singleton != null && !SceneHandler.Singleton.MenuActive()) {
             CheckInteractions();
             CheckGroundStatus();
@@ -92,10 +88,9 @@ public class PlayerController : MonoBehaviour {
 
     void HandleLazerShoot() {
         LineRenderer lineRenderer = shootPoint.GetComponent<LineRenderer>();
-        crosshair.enabled = isAiming;
 
-        if (!isAiming || !isShooting) lineRenderer.enabled = false;
-        if (isAiming && isShooting) {
+        if (!isShooting) lineRenderer.enabled = false;
+        if (isShooting) {
             Vector3 middleScreenToWorld = cam.thisCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, lazerDistance));
             Vector3 direction = middleScreenToWorld - shootPoint.position;
 
@@ -105,17 +100,11 @@ public class PlayerController : MonoBehaviour {
 
             if (Physics.Raycast(shootPoint.position, direction.normalized, out RaycastHit hit, lazerDistance, layerMask)) {
                 lineRenderer.SetPosition(1, hit.point);
-                if (hit.collider.TryGetComponent(out EnemyController enemyController)) {
+                if (!hit.collider.TryGetComponent(out EnemyController enemyController)) {
                     SoundBoard.Instance.PlayLazerHackSFX();
                     enemyController.OnHit();
-                } else {
-                    SoundBoard.Instance.PauseLazerHackSFX();
                 }
-            } else {
-                SoundBoard.Instance.PauseLazerHackSFX();
             }
-        } else {
-            SoundBoard.Instance.PauseLazerHackSFX();
         }
     }
 
@@ -131,7 +120,6 @@ public class PlayerController : MonoBehaviour {
         inputDirection = new(x, 0f, z);
         isMoving = Mathf.Abs(inputDirection.magnitude) > 0f;
         isRunning = Input.GetKey(KeyCode.LeftShift);
-        isAiming = Input.GetKey(KeyCode.Mouse1);
         isShooting = Input.GetKey(KeyCode.Mouse0);
     }
 

@@ -26,25 +26,25 @@ public class SoundBoard : MonoBehaviour {
 
     public void PlayBackgroundMusic() {
         Audio backgroundMusic = audioClips.Find(a => a.name == Audio.AudioEnum.LonelinessSFX);
-        if (backgroundMusic.audioClip != null) {
-            musicSource.clip = backgroundMusic.audioClip;
+        if (backgroundMusic.clip != null) {
+            musicSource.clip = backgroundMusic.clip;
             musicSource.loop = true;
             musicSource.Play();
         }
     }
 
-    public void PlayEnemyShootSFX() {
-        Audio enemyShootAudio = audioClips.Find(a => a.name == Audio.AudioEnum.EnemyShootSFX);
-        if (enemyShootAudio.audioClip != null) {
-            sfxSource.PlayOneShot(enemyShootAudio.audioClip, 1);
+    public void PlayOneShot(Audio.AudioEnum name) {
+        Audio audio = audioClips.Find(a => a.name == name);
+        if (audio.clip != null) {
+            sfxSource.PlayOneShot(audio.clip, audio.volume);
         }
     }
 
     public void PlayLazerHackSFX() {
         Audio lazerHackAudio = audioClips.Find(a => a.name == Audio.AudioEnum.LazerHackSFX);
-        if (lazerHackAudio.audioClip != null && !lazerHackSource.isPlaying) {
-            lazerHackSource.clip = lazerHackAudio.audioClip;
-            lazerHackSource.volume = 0.6f;
+        if (lazerHackAudio.clip != null && !lazerHackSource.isPlaying) {
+            lazerHackSource.clip = lazerHackAudio.clip;
+            lazerHackSource.volume = lazerHackAudio.volume;
             lazerHackSource.Play();
         }
     }
@@ -58,8 +58,9 @@ public class SoundBoard : MonoBehaviour {
 
 [Serializable]
 public struct Audio {
-    public AudioClip audioClip;
+    public AudioClip clip;
     public AudioEnum name;
+    public float volume;
     public enum AudioEnum
     {
         LazerHackSFX,

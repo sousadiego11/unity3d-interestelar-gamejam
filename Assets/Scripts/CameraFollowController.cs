@@ -11,8 +11,6 @@ public class CameraFollowController : MonoBehaviour
 
     [Header("[ Camera View ]")]
     [SerializeField] Vector3 camOffset;
-    [SerializeField] Vector3 camAimOffset;
-    [SerializeField] Vector3 camRunOffset;
 
     // -- Local --
     float pitchPos;
@@ -30,16 +28,11 @@ public class CameraFollowController : MonoBehaviour
             pitchPos = Mathf.Clamp(pitchPos, -20f, 50f);
             yawPos += Input.GetAxis("Mouse X");
 
-            HandleOffset();
             Quaternion rotationMatrix = Quaternion.Euler(pitchPos, yawPos, 0f);
             Vector3 newPositionOffset = Vector3.forward * offset.z + Vector3.up * offset.y + Vector3.right * offset.x;
             Vector3 newPosition = player.transform.position - rotationMatrix * newPositionOffset;
 
             transform.SetPositionAndRotation(newPosition, rotationMatrix);
         }
-    }
-
-    void HandleOffset() {
-        offset = Vector3.Lerp(offset, player.isAiming ? camAimOffset : camOffset, Time.deltaTime * zoomSpeed);
     }
 }

@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
         if (!isReloadingShoot) {
             Vector3 playerDirection = (player.transform.position - transform.position).normalized;
             Quaternion projectileRotation = Quaternion.LookRotation(playerDirection);
-            SoundBoard.Instance.PlayEnemyShootSFX();
+            SoundBoard.Instance.PlayOneShot(Audio.AudioEnum.EnemyShootSFX);
 
             Instantiate(projectilePrefab, shootPoint.position, projectileRotation);
             StartCoroutine(ReloadShoot());
