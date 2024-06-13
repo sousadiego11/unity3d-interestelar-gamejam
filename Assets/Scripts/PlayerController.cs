@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] bool isMoving;
     [SerializeField] public bool isRunning;
     [SerializeField] public bool isShooting;
+    [SerializeField] public bool isHittingEnemy;
+    [SerializeField] public bool isHittingAnything;
     [SerializeField] private bool isGrounded;
     [SerializeField] private float velocity = 4f;
     [SerializeField] private float fallVelocity = 2f;
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour {
             CheckHealth();
 
             HandleLazerShoot();
+            HandleEffects();
             HandleVerticalVelocity();
             HandleMovement();
         }
@@ -89,7 +92,11 @@ public class PlayerController : MonoBehaviour {
     void HandleLazerShoot() {
         LineRenderer lineRenderer = shootPoint.GetComponent<LineRenderer>();
 
-        if (!isShooting) lineRenderer.enabled = false;
+        if (!isShooting) {
+            lineRenderer.enabled = false;
+            isHittingAnything = false;
+            isHittingEnemy = false;
+        }
         if (isShooting) {
             Vector3 middleScreenToWorld = cam.thisCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, lazerDistance));
             Vector3 direction = middleScreenToWorld - shootPoint.position;
@@ -98,13 +105,25 @@ public class PlayerController : MonoBehaviour {
             lineRenderer.SetPosition(1, middleScreenToWorld);
             lineRenderer.enabled = true;
 
+            isHittingAnything = false;
+            isHittingEnemy = false;
+            
             if (Physics.Raycast(shootPoint.position, direction.normalized, out RaycastHit hit, lazerDistance, layerMask)) {
                 lineRenderer.SetPosition(1, hit.point);
+                isHittingAnything = true;
                 if (hit.collider.TryGetComponent(out EnemyController enemyController)) {
-                    SoundBoard.Instance.PlayLazerHackSFX();
                     enemyController.OnHit();
+                    isHittingEnemy = true;
                 }
             }
+        }
+    }
+
+    void HandleEffects() {
+        if (isHittingEnemy) {
+            SoundBoard.Instance.PlayLazerHackSFX();
+        } else {
+            SoundBoard.Instance.PauseLazerHackSFX();
         }
     }
 

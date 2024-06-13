@@ -2677,6 +2677,7 @@ MonoBehaviour:
   player: {fileID: 2031642125}
   zoomSpeed: 5
   camOffset: {x: -0.35, y: -0.4, z: 3.3}
+  camAimOffset: {x: -0.5, y: -0.4, z: 2.2}
   thisCamera: {fileID: 0}
 --- !u!1 &1531009387
 GameObject:
