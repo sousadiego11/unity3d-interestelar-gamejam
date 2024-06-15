@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private Slider healthBar;
     [SerializeField] private GameObject puppet;
     [SerializeField] private GameObject hitPlaceholder;
+    [SerializeField] private Animator animator;
 
     [Header("[ Ground Check ]")]
     [SerializeField] private float groundedRadius;
@@ -29,7 +30,6 @@ public class PlayerController : MonoBehaviour {
 
     [Header("[ State ]")]
     [SerializeField] bool isMoving;
-    [SerializeField] public bool isRunning;
     [SerializeField] public bool isShooting;
     [SerializeField] public bool isHittingEnemy;
     [SerializeField] public bool isHittingAnything;
@@ -144,8 +144,8 @@ public class PlayerController : MonoBehaviour {
         
         inputDirection = new(x, 0f, z);
         isMoving = Mathf.Abs(inputDirection.magnitude) > 0f;
-        isRunning = Input.GetKey(KeyCode.LeftShift);
         isShooting = Input.GetKey(KeyCode.Mouse0);
+        animator.SetBool("isMoving", isMoving);
     }
 
     void CheckHealth() {
