@@ -7,7 +7,6 @@ public class CameraFollowController : MonoBehaviour
 {
     [Header("[ Properties ]")]
     [SerializeField] PlayerController player;
-    [SerializeField] float zoomSpeed;
 
     [Header("[ Camera View ]")]
     [SerializeField] Vector3 camOffset;

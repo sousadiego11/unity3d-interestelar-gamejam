@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Slider healthBar;
     [SerializeField] private GameObject puppet;
+    [SerializeField] private GameObject hitPlaceholder;
 
     [Header("[ Ground Check ]")]
     [SerializeField] private float groundedRadius;
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour {
             lineRenderer.enabled = false;
             isHittingAnything = false;
             isHittingEnemy = false;
+            hitPlaceholder.SetActive(false);
         }
         if (isShooting) {
             Vector3 middleScreenToWorld = cam.thisCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, lazerDistance));
@@ -107,10 +109,14 @@ public class PlayerController : MonoBehaviour {
 
             isHittingAnything = false;
             isHittingEnemy = false;
+            hitPlaceholder.transform.position = middleScreenToWorld;
+            hitPlaceholder.SetActive(true);
+
             
             if (Physics.Raycast(shootPoint.position, direction.normalized, out RaycastHit hit, lazerDistance, layerMask)) {
                 lineRenderer.SetPosition(1, hit.point);
                 isHittingAnything = true;
+                hitPlaceholder.transform.position = hit.point;
                 if (hit.collider.TryGetComponent(out EnemyController enemyController)) {
                     enemyController.OnHit();
                     isHittingEnemy = true;

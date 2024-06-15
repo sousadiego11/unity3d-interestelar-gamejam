@@ -5,30 +5,27 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : Hackeable
 {
     [Header("[ Properties ]")]
     [SerializeField] float viewDistance;
     [SerializeField] float viewAngle;
     [SerializeField] float patrolRadius;
+    [SerializeField] float shootReloadTime;
     [SerializeField] Renderer leftEye;
     [SerializeField] Renderer rightEye;
-    [SerializeField] Slider staminaSlider;
-    [SerializeField] Canvas canvas;
-    [SerializeField] float shootReloadTime;
     [SerializeField] LayerMask maskPlayerAndCover;
     [SerializeField] float coverLayer;
     [SerializeField] ProjectileController projectilePrefab;
     [SerializeField] Transform shootPoint;
     [SerializeField]  Animator animator;
+    [SerializeField]  Light chestLight;
 
     [Header("[ Knowledge ]")]
     public bool playerInFov;
     public bool playerDetected;
     public float playerDistance;
     public bool isPatrolling;
-    public bool isStunned;
-    public bool isRegeneratingStamina;
     public bool isReloadingShoot;
 
     // -- Local --
@@ -42,6 +39,7 @@ public class EnemyController : MonoBehaviour
 
     void Update() {
         CheckStatus();
+        CheckStunned();
         CheckPlayerDetection();
         CheckColors();
         
@@ -79,14 +77,9 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void CheckStatus() {
-        canvas.enabled = staminaSlider.value < staminaSlider.maxValue;
-        isStunned = staminaSlider.value <= 0f || isRegeneratingStamina;
+    void CheckStunned() {
         animator.SetBool("isStunned", isStunned);
-
-        if (isStunned && !isRegeneratingStamina) {
-            StartCoroutine(RegenerateStamina());
-        }
+        chestLight.enabled = !isStunned;
     }
 
     void CheckPlayerDetection() {
@@ -126,19 +119,6 @@ public class EnemyController : MonoBehaviour
 
     bool HasPlayerInRange() {
         return (player.transform.position - transform.position).magnitude <= viewDistance;
-    }
-
-    public void OnHit() {
-        staminaSlider.value -= Time.deltaTime * 2f;
-    }
-    
-    IEnumerator RegenerateStamina() {
-        isRegeneratingStamina = true;
-        while (staminaSlider.value < staminaSlider.maxValue) {
-            staminaSlider.value += Time.deltaTime * 0.4f;
-            yield return null;
-        }
-        isRegeneratingStamina = false;
     }
     
     IEnumerator ReloadShoot() {
