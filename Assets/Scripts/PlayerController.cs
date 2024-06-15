@@ -163,5 +163,6 @@ public class PlayerController : MonoBehaviour {
 
     public void OnHit(float damage) {
         healthBar.value -= Time.deltaTime * damage;
+        cam.ExecShake();
     }
 }

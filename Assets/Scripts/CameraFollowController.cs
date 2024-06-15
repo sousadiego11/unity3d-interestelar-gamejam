@@ -33,4 +33,26 @@ public class CameraFollowController : MonoBehaviour
             transform.SetPositionAndRotation(newPosition, rotationMatrix);
         }
     }
+
+    public void ExecShake() {
+        StartCoroutine(Shake());
+    }
+
+    IEnumerator Shake() {
+        Vector3 originalPosition = transform.localPosition;
+        float duration = 0.15f;
+        float elapsed = 0f;
+        
+        while (elapsed < duration) {
+            elapsed += Time.deltaTime;
+            float range = 0.1f;
+            float x = UnityEngine.Random.Range(-range, range);
+            float y = UnityEngine.Random.Range(-range, range);
+
+            transform.localPosition = new Vector3(transform.localPosition.x + x, transform.localPosition.y + y, transform.localPosition.z);
+            yield return null;
+        }
+
+        transform.localPosition = originalPosition;
+    }
 }
