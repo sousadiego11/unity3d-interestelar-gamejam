@@ -59,7 +59,7 @@ public class EnemyController : Hackeable
         if (!isReloadingShoot) {
             Vector3 playerDirection = (player.transform.position - transform.position).normalized;
             Quaternion projectileRotation = Quaternion.LookRotation(playerDirection);
-            SoundBoard.Instance.PlayOneShot(Audio.AudioEnum.EnemyShootSFX);
+            SoundBoard.Singleton.PlayOneShot(Audio.AudioEnum.EnemyShootSFX);
 
             Instantiate(projectilePrefab, shootPoint.position, projectileRotation);
             StartCoroutine(ReloadShoot());

@@ -127,9 +127,9 @@ public class PlayerController : MonoBehaviour {
 
     void HandleEffects() {
         if (isHittingEnemy) {
-            SoundBoard.Instance.PlayLazerHackSFX();
+            SoundBoard.Singleton.Play(Audio.AudioEnum.LazerHackSFX);
         } else {
-            SoundBoard.Instance.PauseLazerHackSFX();
+            SoundBoard.Singleton.Stop(Audio.AudioEnum.LazerHackSFX);
         }
     }
 

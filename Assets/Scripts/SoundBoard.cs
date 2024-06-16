@@ -5,66 +5,71 @@ using UnityEngine;
 
 public class SoundBoard : MonoBehaviour {
     
-    [SerializeField] List<Audio> audioClips;
-    [SerializeField] AudioSource musicSource;
-    [SerializeField] AudioSource sfxSource;
-    [SerializeField] AudioSource lazerHackSource;
+    [SerializeField] List<Audio> audios;
 
-    public static SoundBoard Instance {get; private set;}
+    public static SoundBoard Singleton {get; private set;}
 
-    private void Awake() {
-        if (Instance != null && Instance != this) {
+    void Awake() {
+        if (Singleton != null && Singleton != this) {
             Destroy(this);
         } else {
-            Instance = this;
+            Singleton = this;
         }
     }
     
-    private void Start() {
-        PlayBackgroundMusic();
+    void Start() {
+        List<Audio> temp = new();
+        foreach (Audio audio in audios) {
+            temp.Add(new Audio {
+                clip = audio.clip,
+                name = audio.name,
+                source = gameObject.AddComponent<AudioSource>(),
+                volume = audio.volume
+            });
+        }
+        audios = temp;
+        Play(Audio.AudioEnum.LonelinessSFX);
     }
 
-    public void PlayBackgroundMusic() {
-        Audio backgroundMusic = audioClips.Find(a => a.name == Audio.AudioEnum.LonelinessSFX);
-        if (backgroundMusic.clip != null) {
-            musicSource.clip = backgroundMusic.clip;
-            musicSource.loop = true;
-            musicSource.Play();
+    public void Play(Audio.AudioEnum name) {
+        Audio song = Get(name);
+        if (song.clip != null && !song.source.isPlaying) {
+            song.source.clip = song.clip;
+            song.source.loop = true;
+            song.source.Play();
         }
+    }
+
+    public void Stop(Audio.AudioEnum name) {
+        Audio song = Get(name);
+        if (song.source.isPlaying) {
+            song.source.Pause();
+        }
+
     }
 
     public void PlayOneShot(Audio.AudioEnum name) {
-        Audio audio = audioClips.Find(a => a.name == name);
+        Audio audio = Get(name);
         if (audio.clip != null) {
-            sfxSource.PlayOneShot(audio.clip, audio.volume);
+            audio.source.PlayOneShot(audio.clip, audio.volume);
         }
     }
 
-    public void PlayLazerHackSFX() {
-        Audio lazerHackAudio = audioClips.Find(a => a.name == Audio.AudioEnum.LazerHackSFX);
-        if (lazerHackAudio.clip != null && !lazerHackSource.isPlaying) {
-            lazerHackSource.clip = lazerHackAudio.clip;
-            lazerHackSource.volume = lazerHackAudio.volume;
-            lazerHackSource.Play();
-        }
-    }
-
-    public void PauseLazerHackSFX() {
-        if (lazerHackSource.isPlaying) {
-            lazerHackSource.Pause();
-        }
+    Audio Get(Audio.AudioEnum name) {
+        return audios.Find(a => a.name == name);
     }
 }
 
 [Serializable]
 public struct Audio {
     public AudioClip clip;
+    [HideInInspector] public AudioSource source;
     public AudioEnum name;
     public float volume;
-    public enum AudioEnum
-    {
+    public enum AudioEnum {
         LazerHackSFX,
         EnemyShootSFX,
-        LonelinessSFX
+        LonelinessSFX,
+        ShutDownSFX,
     }
 }

@@ -40,12 +40,12 @@ public class CameraFollowController : MonoBehaviour
 
     IEnumerator Shake() {
         Vector3 originalPosition = transform.localPosition;
-        float duration = 0.15f;
+        float duration = 0.1f;
         float elapsed = 0f;
         
         while (elapsed < duration) {
             elapsed += Time.deltaTime;
-            float range = 0.1f;
+            float range = 0.04f;
             float x = UnityEngine.Random.Range(-range, range);
             float y = UnityEngine.Random.Range(-range, range);
 
