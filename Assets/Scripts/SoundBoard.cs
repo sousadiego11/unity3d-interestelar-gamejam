@@ -18,7 +18,7 @@ public class SoundBoard : ExtensibleSingleton<SoundBoard> {
             return audio;
         }).ToList();
 
-        FadeIn(Audio.AudioEnum.LonelinessSFX, 1f);
+        FadeIn(Audio.AudioEnum.LonelinessSFX, 5f);
     }
 
     public void Play(Audio.AudioEnum name) {
@@ -41,6 +41,11 @@ public class SoundBoard : ExtensibleSingleton<SoundBoard> {
         if (audio.clip != null) {
             audio.source.PlayOneShot(audio.clip, audio.volume);
         }
+    }
+
+    public void BlendBetween(Audio.AudioEnum from, Audio.AudioEnum to, float speed) {
+        Singleton.FadeOut(from, speed);
+        Singleton.FadeIn(to, speed);
     }
 
     public void FadeIn(Audio.AudioEnum name, float speed) {
@@ -92,5 +97,6 @@ public struct Audio {
         EnemyShootSFX,
         LonelinessSFX,
         ShutDownSFX,
+        WarningSFX,
     }
 }

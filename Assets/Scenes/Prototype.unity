@@ -1962,22 +1962,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios:
-  - clip: {fileID: 8300000, guid: e606230925c82a54f90787e75419dfa7, type: 3}
-    source: {fileID: 0}
+  - volume: 1
+    clip: {fileID: 8300000, guid: e606230925c82a54f90787e75419dfa7, type: 3}
     name: 0
-    volume: 1
-  - clip: {fileID: 8300000, guid: 95fd3c65b6332674b99e8ed8a87606fb, type: 3}
     source: {fileID: 0}
+    isFadingOut: 0
+  - volume: 1.5
+    clip: {fileID: 8300000, guid: 95fd3c65b6332674b99e8ed8a87606fb, type: 3}
     name: 1
-    volume: 1
-  - clip: {fileID: 8300000, guid: 04934464dff68fd4786113e3ee624b95, type: 3}
     source: {fileID: 0}
+    isFadingOut: 0
+  - volume: 1
+    clip: {fileID: 8300000, guid: 04934464dff68fd4786113e3ee624b95, type: 3}
     name: 2
-    volume: 1
-  - clip: {fileID: 8300000, guid: 3cb6b40033fcb4847aff4bc04414fce9, type: 3}
     source: {fileID: 0}
+    isFadingOut: 0
+  - volume: 1
+    clip: {fileID: 8300000, guid: 3cb6b40033fcb4847aff4bc04414fce9, type: 3}
     name: 3
-    volume: 1
+    source: {fileID: 0}
+    isFadingOut: 0
+  - volume: 1
+    clip: {fileID: 8300000, guid: c933ed28b4bcc414480734d7519334a8, type: 3}
+    name: 4
+    source: {fileID: 0}
+    isFadingOut: 0
 --- !u!1 &1268566272
 GameObject:
   m_ObjectHideFlags: 0
