@@ -10,13 +10,13 @@ public class Hackeable : MonoBehaviour {
     [SerializeField] protected Slider staminaSlider;
     [SerializeField] protected Canvas staminaCanvas;
     [SerializeField] protected bool isRegeneratingStamina;
-    [SerializeField] protected bool isStunned;
+    [SerializeField] protected bool isDisabled;
     
     protected void CheckStatus() {
         staminaCanvas.enabled = staminaSlider.value < staminaSlider.maxValue;
-        isStunned = staminaSlider.value <= 0f || isRegeneratingStamina;
+        isDisabled = staminaSlider.value <= 0f || isRegeneratingStamina;
 
-        if (isStunned && !isRegeneratingStamina) {
+        if (isDisabled && !isRegeneratingStamina) {
             StartCoroutine(RegenerateStamina());
         }
     }

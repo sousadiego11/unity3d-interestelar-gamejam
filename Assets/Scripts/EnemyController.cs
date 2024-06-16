@@ -48,7 +48,7 @@ public class EnemyController : Hackeable
     }
 
     void Chase() {
-        if (playerDetected && !isStunned) {
+        if (playerDetected && !isDisabled) {
             isPatrolling = false;
             navAgent.SetDestination(player.transform.position);
             Attack();
@@ -67,8 +67,8 @@ public class EnemyController : Hackeable
     }
 
     void Patrol() {
-        if (!isPatrolling && !playerDetected || isStunned) navAgent.ResetPath();
-        if (!playerDetected && !isStunned && (!navAgent.hasPath || navAgent.remainingDistance <= navAgent.stoppingDistance)) {
+        if (!isPatrolling && !playerDetected || isDisabled) navAgent.ResetPath();
+        if (!playerDetected && !isDisabled && (!navAgent.hasPath || navAgent.remainingDistance <= navAgent.stoppingDistance)) {
             isPatrolling = true;
             Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrolRadius + transform.position;
 
@@ -78,8 +78,8 @@ public class EnemyController : Hackeable
     }
 
     void CheckStunned() {
-        animator.SetBool("isStunned", isStunned);
-        chestLight.enabled = !isStunned;
+        animator.SetBool("isStunned", isDisabled);
+        chestLight.enabled = !isDisabled;
     }
 
     void CheckPlayerDetection() {
@@ -102,7 +102,7 @@ public class EnemyController : Hackeable
     }
 
     void CheckColors() {
-        Color targetColor = isStunned ? Color.yellow : playerDetected ? Color.red : Color.blue;
+        Color targetColor = isDisabled ? Color.yellow : playerDetected ? Color.red : Color.blue;
         
         leftEye.material.color = targetColor;
         leftEye.material.EnableKeyword("_EMISSION");
