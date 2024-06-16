@@ -55,7 +55,7 @@ public class SoundBoard : ExtensibleSingleton<SoundBoard> {
         Audio audio = Get(name);
         if (!audio.isFadingOut) {
             while (audio.source.volume > 0f) {
-                audio.source.volume -= speed * Time.deltaTime;
+                audio.source.volume = Mathf.Clamp(audio.source.volume - speed * Time.deltaTime, 0f, audio.volume);
                 yield return null;
             }
             Stop(name);
@@ -69,7 +69,7 @@ public class SoundBoard : ExtensibleSingleton<SoundBoard> {
             audio.source.volume = 0f;
             Play(name);
             while (audio.source.volume < audio.volume) {
-                audio.source.volume += speed * Time.deltaTime;
+                audio.source.volume = Mathf.Clamp(audio.source.volume + speed * Time.deltaTime, 0f, audio.volume);
                 yield return null;
             }
         }
