@@ -3,19 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundBoard : MonoBehaviour {
+public class SoundBoard : ExtensibleSingleton<SoundBoard> {
     
     [SerializeField] List<Audio> audios;
-
-    public static SoundBoard Singleton {get; private set;}
-
-    void Awake() {
-        if (Singleton != null && Singleton != this) {
-            Destroy(this);
-        } else {
-            Singleton = this;
-        }
-    }
     
     void Start() {
         List<Audio> temp = new();

@@ -2,20 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneHandler : MonoBehaviour {
+public class SceneHandler : ExtensibleSingleton<SceneHandler> {
 
     [SerializeField] Canvas mainMenu;
     [SerializeField] Canvas endMenu;
 
-    public static SceneHandler Singleton;
-    private void Awake() {
+    void Start() {
         endMenu.enabled = false;
-        if (Singleton == null) {
-            Singleton = this;
-        }
-        else {
-            Destroy(gameObject);
-        }
     }
 
     void Update() {
