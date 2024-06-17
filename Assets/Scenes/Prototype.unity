@@ -1912,6 +1912,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1264993294}
   - component: {fileID: 1264993293}
+  - component: {fileID: 1264993298}
   - component: {fileID: 1264993297}
   m_Layer: 0
   m_Name: Scripts
@@ -1987,6 +1988,21 @@ MonoBehaviour:
     name: 4
     source: {fileID: 0}
     isFadingOut: 0
+--- !u!114 &1264993298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264993292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb536b87ee7e0f5479545534bbb72679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles:
+  - prefab: {fileID: 570271392891698775, guid: 6395f1fbcc386be40ae92267057730fb, type: 3}
+    name: 0
 --- !u!1 &1268566272
 GameObject:
   m_ObjectHideFlags: 0
@@ -3111,7 +3127,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 41289371969506361, guid: 698b04742152aa0419ead712ecab5a80, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.2197665
+      value: 14.22
       objectReference: {fileID: 0}
     - target: {fileID: 41289371969506361, guid: 698b04742152aa0419ead712ecab5a80, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3119,7 +3135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 41289371969506361, guid: 698b04742152aa0419ead712ecab5a80, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.0356016
+      value: 4.94
       objectReference: {fileID: 0}
     - target: {fileID: 41289371969506361, guid: 698b04742152aa0419ead712ecab5a80, type: 3}
       propertyPath: m_LocalRotation.w

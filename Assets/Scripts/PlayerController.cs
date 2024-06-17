@@ -41,10 +41,11 @@ public class PlayerController : MonoBehaviour {
 
     // -- Local --
     Vector3 inputDirection;
+    LineRenderer lr;
     float verticalVelocity;
 
     void Start() {
-        LineRenderer lr = shootPoint.gameObject.AddComponent<LineRenderer>();
+        lr = shootPoint.gameObject.AddComponent<LineRenderer>();
         lr.startWidth = 0.02f;
         lr.endWidth = 0.02f;
         lr.material = lazerMaterial;
@@ -91,38 +92,29 @@ public class PlayerController : MonoBehaviour {
     }
 
     void HandleLazerShoot() {
-        LineRenderer lineRenderer = shootPoint.GetComponent<LineRenderer>();
+        lr.enabled = isShooting;
+        isHittingAnything = false;
+        isHittingEnemy = false;
 
-        if (!isShooting) {
-            lineRenderer.enabled = false;
-            isHittingAnything = false;
-            isHittingEnemy = false;
-            hitPlaceholder.SetActive(false);
-        }
         if (isShooting) {
             Vector3 middleScreenToWorld = cam.thisCamera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, lazerDistance));
             Vector3 direction = middleScreenToWorld - shootPoint.position;
 
-            lineRenderer.SetPosition(0, shootPoint.position);
-            lineRenderer.SetPosition(1, middleScreenToWorld);
-            lineRenderer.enabled = true;
-
-            isHittingAnything = false;
-            isHittingEnemy = false;
-            hitPlaceholder.transform.position = middleScreenToWorld;
-            hitPlaceholder.SetActive(true);
-
+            lr.SetPosition(0, shootPoint.position);
+            lr.SetPosition(1, middleScreenToWorld);
+            lr.enabled = true;
             
             if (Physics.Raycast(shootPoint.position, direction.normalized, out RaycastHit hit, lazerDistance, layerMask)) {
-                lineRenderer.SetPosition(1, hit.point);
+                lr.SetPosition(1, hit.point);
                 isHittingAnything = true;
-                hitPlaceholder.transform.position = hit.point;
                 if (hit.collider.TryGetComponent(out EnemyController enemyController)) {
-                    enemyController.OnHit();
                     isHittingEnemy = true;
+                    enemyController.OnHit();
+                    ParticleHandler.Singleton.Activate(hit.point, Particle.ParticleEnum.HackParticle);
                 }
             }
         }
+        if (!isHittingEnemy) ParticleHandler.Singleton.Disable(Particle.ParticleEnum.HackParticle);
     }
 
     void HandleEffects() {

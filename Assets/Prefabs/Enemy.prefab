@@ -649,8 +649,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staminaSlider: {fileID: 1309562364668250821}
   staminaCanvas: {fileID: 6583071056497734770}
+  particlePrefab: {fileID: 570271392891698775, guid: 6395f1fbcc386be40ae92267057730fb, type: 3}
   isRegeneratingStamina: 0
-  isStunned: 0
+  isDisabled: 0
   viewDistance: 20
   viewAngle: 90
   patrolRadius: 10
