@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using AGOUtils;
 
 public class ParticleHandler : ExtensibleSingleton<ParticleHandler> {
     [SerializeField] List<Particle> particles;
@@ -14,17 +15,23 @@ public class ParticleHandler : ExtensibleSingleton<ParticleHandler> {
         }).ToList();
     }
     
-    public void Activate(Vector3 hit, Particle.ParticleEnum name) {
+    public void Activate(Vector3 position, Particle.ParticleEnum name) {
         Particle particle = _instantiated.Find(a => a.name == name);
-        particle.prefab.transform.position = hit;
-        particle.prefab.SetActive(true);
-        particle.prefab.GetComponent<ParticleSystem>().Play();
+        ParticleSystem ps = particle.prefab.GetComponent<ParticleSystem>();
+        if (!ps.isPlaying) {
+            particle.prefab.transform.position = position;
+            particle.prefab.SetActive(true);
+            ps.Play();
+        }
     }
 
     public void Disable(Particle.ParticleEnum name) {
         Particle particle = _instantiated.Find(a => a.name == name);
-        particle.prefab.SetActive(false);
-        particle.prefab.GetComponent<ParticleSystem>().Pause();
+        ParticleSystem ps = particle.prefab.GetComponent<ParticleSystem>();
+        if (ps.isPlaying) {
+            particle.prefab.SetActive(false);
+            ps.Pause();
+        }
     }
 }
 

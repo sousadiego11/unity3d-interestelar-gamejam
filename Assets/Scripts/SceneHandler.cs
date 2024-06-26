@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using AGOUtils;
 
 public class SceneHandler : ExtensibleSingleton<SceneHandler> {
 

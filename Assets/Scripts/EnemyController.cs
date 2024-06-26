@@ -51,10 +51,10 @@ public class EnemyController : Hackeable
         if (playerDetected && !isDisabled) {
             isPatrolling = false;
             navAgent.SetDestination(player.transform.position);
-            SoundBoard.Singleton.BlendBetween(Audio.AudioEnum.LonelinessSFX, Audio.AudioEnum.WarningSFX, 0.5f);
+            SoundBoard.Singleton.BlendBetween(Audio.AudioEnum.LonelinessSFX, Audio.AudioEnum.WarningSFX, 2f);
             Attack();
         } else {
-            SoundBoard.Singleton.BlendBetween(Audio.AudioEnum.WarningSFX, Audio.AudioEnum.LonelinessSFX, 0.5f);
+            SoundBoard.Singleton.BlendBetween(Audio.AudioEnum.WarningSFX, Audio.AudioEnum.LonelinessSFX, 5f);
         }
     }
 

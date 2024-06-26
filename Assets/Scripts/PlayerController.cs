@@ -119,9 +119,9 @@ public class PlayerController : MonoBehaviour {
 
     void HandleEffects() {
         if (isHittingEnemy) {
-            SoundBoard.Singleton.FadeIn(Audio.AudioEnum.LazerHackSFX, 2f);
+            SoundBoard.Singleton.FadeIn(Audio.AudioEnum.LazerHackSFX, 0.4f);
         } else {
-            SoundBoard.Singleton.FadeOut(Audio.AudioEnum.LazerHackSFX, 2f);
+            SoundBoard.Singleton.FadeOut(Audio.AudioEnum.LazerHackSFX, 0.4f);
         }
     }
 
